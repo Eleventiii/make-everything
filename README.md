@@ -2,7 +2,7 @@
 
 2026 年 11 月 13 日 · 数字设计与制作过程记录
 
-![最终组合：扫描得到的小人偶坐在六翼龙颈背处，两侧展开的龙翼衬托出体量差异](images/result.png)
+![最终组合：扫描得到的小人偶坐在六翼龙颈背处，两侧展开的龙翼衬托出体量差异](result.png)
 
 ## 1. What Is It?｜这是什么作品？
 
@@ -24,21 +24,21 @@
 
 **① 采集实物。** 我们把人偶放在转台上，用三脚架固定扫描仪，在电脑上同时查看相机画面和逐渐形成的模型。第一次尝试遇到了重影。后来将人偶背面朝向扫描仪开始采集，让脸部在一段连续的扫描中经过镜头，回到背面就结束。在 Revo Scan 中完成一键处理后，我们得到彩色预览，并导出 OBJ 供后续编辑。
 
-![扫描现场：人偶、转台、固定扫描仪和 Revo Scan 界面](images/setup.jpg)
+![扫描现场：人偶、转台、固定扫描仪和 Revo Scan 界面](setup.jpg)
 
-[实物近照](images/figurine.jpg) · [采集画面](images/cloud.jpg) · [现场短视频](media/turntable.mp4) · [软件处理录像节选，原录像约 06:18–07:31](media/processing.mp4)
+[实物近照](figurine.jpg) · [采集画面](cloud.jpg) · [现场短视频](turntable.mp4) · [软件处理录像节选，原录像约 06:18–07:31](processing.mp4)
 
 **② 修整人偶。** 导入 Blender 后，屁股和脚下方连着一团杂面，下巴和头部还有缺口。我们先用切分工具移除底部杂面，再补头部小孔。下巴的边缘比较曲折，最后选择了直接选中边界、按 F 填面的做法，保留这个版本用于组合。
 
-![修补前，坐姿人偶底部连着多余的扫描网格](images/raw.png)
+![修补前，坐姿人偶底部连着多余的扫描网格](raw.png)
 
-[下巴缺口近景](images/chin.png) · [填面后的正面效果](images/repaired.png)
+[下巴缺口近景](chin.png) · [填面后的正面效果](repaired.png)
 
 **③ 从插画得到建模参考图。** 原图上方的一对龙翼超出了画面。我们在提示词中指定三对、共六片龙翼，要求补全翼尖，让四肢与尾部错开，并保留青蓝色翼面与靛蓝色翼缘。采用白底和前侧四分之三视角后，一张图里就能看清各部分的轮廓。
 
-![交给图生三维工具的六翼龙全身参考图](images/dragon-reference.png)
+![交给图生三维工具的六翼龙全身参考图](dragon-reference.png)
 
-[原始插画](images/dragon-source.jpg) · [完整生图提示词](dragon-prompt.md)
+[原始插画](dragon-source.jpg) · [完整生图提示词](dragon-prompt.md)
 
 **④ 生成龙并摆放骑手。** 我们把上面的参考图上传到 MakerWorld 的“图片生成 3D 模型”，选择 Meshy，下载生成的单色文件 `single_color.stl`。在 Blender 中把龙放大，让人偶坐到靠近龙颈的背部。最终场景中，人偶对象名为 `venti1_tex`，龙对象名为 `single_color`。
 
