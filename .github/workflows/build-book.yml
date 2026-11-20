@@ -1,0 +1,66 @@
+name: 更新制作手记首页
+on:
+  push:
+    branches: [main]
+    paths:
+      - '[0-9][0-9]-*.md'
+      - '.github/workflows/build-book.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: build-book-main
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: 合并章节并更新首页
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python3 - <<'PY'
+          from pathlib import Path
+          import re
+          
+          chapters = []
+          for path in Path(".").glob("[0-9][0-9]-*.md"):
+              title, _, body = path.read_text(encoding="utf-8-sig").partition("\n")
+              if not title.startswith("# "):
+                  raise ValueError(f"{path} 的第一行需要是 # 章节标题")
+              chapters.append((path.name[:2], title[2:].strip(), body.strip()))
+          chapters.sort()
+          if not chapters or len({c[0] for c in chapters}) != len(chapters):
+              raise ValueError("请检查章节文件及其两位数编号，每个编号应当唯一")
+          
+          parts = ["<!-- 首页由章节文件自动生成，请编辑对应章节。 -->", "# 数字设计与制作手记", "## 目录"]
+          parts.append("\n".join(f"- [第 {int(n)} 章 · {t}](#chapter-{n})" for n, t, _ in chapters))
+          for n, title, body in chapters:
+              lines = []
+              fence = ""
+              for line in body.splitlines():
+                  marker = re.match(r"^\s{0,3}(`{3,}|~{3,})", line)
+                  if fence:
+                      if line.strip().startswith(fence) and set(line.strip()) == {fence[0]}:
+                          fence = ""
+                  elif marker:
+                      fence = marker[1]
+                  elif re.match(r"^#{1,5} ", line):
+                      line = "#" + line
+                  lines.append(line)
+              parts.extend(["---", f'<a name="chapter-{n}"></a>', f"## 第 {int(n)} 章 · {title}", "\n".join(lines)])
+          Path("README.md").write_text("\n\n".join(parts) + "\n", encoding="utf-8")
+          PY
+            git add README.md
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m "根据章节更新制作手记首页"
+            if git push origin HEAD:main; then exit 0; fi
+          done
+          exit 1
