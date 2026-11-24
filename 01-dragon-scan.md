@@ -1,5 +1,7 @@
 # 人偶骑龙｜从实物扫描到六翼龙场景
 
+[Read in English ↓](#english-dragon)
+
 2026 年 11 月 13 日 · 数字设计与制作过程记录
 
 ![最终组合：扫描得到的小人偶坐在六翼龙颈背处，两侧展开的龙翼衬托出体量差异](result.png)
@@ -60,3 +62,70 @@
 扫描完成后，下巴的缺口和底部多出的杂面还需要分别处理。切掉底部能很快恢复坐姿轮廓，下巴直接填面则只能封住缺口。下次扫描时，我们会在撤掉设备前转动预览，专门检查下巴、发梢下方和坐面，再决定是否需要换角度补扫。
 
 制作六翼龙时，我们发现原图里被裁掉的翼尖必须先补全，才能明确告诉图生 3D 工具每片翅膀延伸到哪里。最终摆放时，龙背的尖刺和翼根又限制了骑手的位置。下次会额外保存一张侧面接触图，和全景一起展示骑手是怎样坐稳的。若要制作可打印版本，还需检查模型封闭性、薄翼厚度和连接处。
+
+---
+
+<a name="english-dragon"></a>
+
+## English · A Scanned Figurine Rides a Six-Winged Dragon
+
+13 November 2026 · Digital design and fabrication log
+
+![The scanned rider sits just behind the dragon’s neck. The spread wings give a sense of scale.](result.png)
+
+### 1. What is it?
+
+We turned a little blue-haired figurine on our desk into a dragon rider. Scanning the figurine captured its hair, braids and seated pose, with both feet stretched out in front. The dragon started as a 2D illustration. We used AI to complete the cropped wings, generated a 3D model from the finished image, and brought the two models together in Blender.
+
+### 2. What does it do?
+
+This is a static scene you can orbit in Blender. The figurine originally sat on a flat surface. Now it sits just behind the dragon’s neck, and you can catch a glimpse of the little rider between the wings. We kept the two objects separate so we could move the rider or adjust their relative sizes. We took this version through the scene layout stage.
+
+### 3. How did we make it?
+
+| Stage | What we used or did |
+| --- | --- |
+| Scan setup | One seated blue-haired figurine, a black turntable with white dots, a Revopoint scanner, a tabletop tripod and a laptop running Revo Scan 5.5.5 |
+| Scan path | We kept the scanner still and rotated the figurine. On the revised pass, we started at the back and stopped when the turntable had made one full revolution. |
+| Mesh cleanup | Blender 5.2.2 LTS. We imported the OBJ, trimmed the underside with Bisect and used F to fill holes. |
+| Dragon model | We used ChatGPT for the full-body reference on a white background, then Meshy 7.1 4K in MakerWorld to generate the model and export an STL. |
+| Scene layout | We imported the dragon into Blender and adjusted the size and position of each object. The dragon’s scale was 15 in the final screenshot. That value depends on the scale of the imported files. |
+
+**Scanning the figurine.** We placed it on the turntable, mounted the scanner on the tripod and watched both the camera feed and the growing model on the laptop. Our first scan showed doubled outlines. For the next pass we started at the back, let the face pass the camera in one continuous sweep, and stopped when the back came into view again. Revo Scan’s one-click processing gave us a colour preview. We exported an OBJ for cleanup.
+
+![The scanning setup with the figurine, turntable, fixed scanner and Revo Scan interface](setup.jpg)
+
+[Figurine close-up](figurine.jpg) · [Scan in progress](cloud.jpg) · [Turntable video](turntable.mp4) · [Processing clip, approximately 06:18–07:31 in the original recording](processing.mp4)
+
+**Cleaning up the scan.** A tangle of extra mesh clung to the underside of the seat and feet. We also found gaps around the chin and head. We cut away the extra mesh first, then closed the small holes in the head. The chin had an uneven border. We selected its boundary, pressed F to fill it and used that version for the scene.
+
+![Excess scan geometry under the seated figurine before cleanup](raw.png)
+
+[Gap under the chin](chin.png) · [Front view after filling the hole](repaired.png)
+
+**Preparing the dragon reference.** The top pair of wings ran off the edge of the original illustration. In the prompt we specified three pairs of wings, asked for every wingtip to fit in the frame, and kept the legs and tail clear of each other. We also specified blue-green wing membranes with indigo edges. A front three-quarter view against white made each silhouette readable in a single image.
+
+![Full-body six-winged dragon reference used for image-to-3D generation](dragon-reference.png)
+
+[Original illustration](dragon-source.jpg) · [Full image-generation prompt](dragon-prompt.md)
+
+**Placing the rider.** We uploaded the reference to MakerWorld’s image-to-3D tool, chose Meshy and downloaded the single-colour model as `single_color.stl`. In Blender we scaled up the dragon and seated the figurine on its back, close to the neck. The final scene contains the rider object `venti1_tex` and the dragon object `single_color`.
+
+### 4. How can someone reproduce it?
+
+1. Set the figurine on the turntable and mount the scanner on the tripod. Check the Revo Scan camera preview to make sure both feet and the top of the head are in frame.
+2. Start at the figurine’s back. Rotate past one side, the face and the other side in one continuous pass. Stop at the back, inspect the facial outline, process the scan and export an OBJ.
+3. Import the OBJ into Blender. In Edit Mode, use Bisect to trim the extra mesh beneath the feet. Check the cut height from the side. Select each hole boundary and press F to fill it, then rotate the model to inspect the chin and head.
+4. To recreate the reference, give the image tool the original illustration and the full prompt linked above. To start the modelling stage with our exact input, use the white-background dragon reference.
+5. Upload that image to MakerWorld, generate the dragon with Meshy, and inspect the wingtips, limbs and tail tip before exporting the STL.
+6. Import the STL into the figurine’s Blender scene. Use S to scale, G to move and R to rotate the rider so it faces the dragon’s head. Check from the side and above that the seat meets the back and that the spines clear the rider. Save the scene as a .blend file for later adjustments.
+
+The project includes setup photos, a software recording excerpt, the six-winged dragon reference and the complete prompt.
+
+### 5. What did we learn?
+
+Moving the start of the scan to the back made the biggest difference to the figurine. Even a small mismatch in the face was obvious from the front. Keeping the scan to a single turn let us capture the face in one pass and put the start and end at the more forgiving back of the head. That gave us a mesh we could work with. We never pinned down the exact cause of the doubled outlines.
+
+Trimming the underside quickly recovered the seated silhouette. Filling the hole under the chin closed the gap, but the missing surface detail was still missing. Next time we’ll rotate the preview while the scanner is still set up, inspect the chin, the areas under the hair tips and the seat, and decide whether to capture another angle.
+
+Completing the cropped wingtips in the reference gave the image-to-3D tool a clear endpoint for each wing. Once the dragon was in Blender, its back spines and wing roots limited where the rider could sit. Next time we’ll save a close side view of the seat alongside the wide shot to show how the two surfaces meet. A printable version would also need checks for mesh closure, wing thickness and the joints.
