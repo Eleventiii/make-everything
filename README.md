@@ -13,6 +13,8 @@
 
 ## 第 1 章 · 人偶骑龙｜从实物扫描到六翼龙场景
 
+[Read in English ↓](#english-dragon)
+
 2026 年 11 月 13 日 · 数字设计与制作过程记录
 
 ![最终组合：扫描得到的小人偶坐在六翼龙颈背处，两侧展开的龙翼衬托出体量差异](result.png)
@@ -76,9 +78,78 @@
 
 ---
 
+<a name="english-dragon"></a>
+
+### English · A Scanned Figurine Rides a Six-Winged Dragon
+
+13 November 2026 · Digital design and fabrication log
+
+![The scanned rider sits just behind the dragon’s neck. The spread wings give a sense of scale.](result.png)
+
+#### 1. What is it?
+
+We turned a little blue-haired figurine on our desk into a dragon rider. Scanning the figurine captured its hair, braids and seated pose, with both feet stretched out in front. The dragon started as a 2D illustration. We used AI to complete the cropped wings, generated a 3D model from the finished image, and brought the two models together in Blender.
+
+#### 2. What does it do?
+
+This is a static scene you can orbit in Blender. The figurine originally sat on a flat surface. Now it sits just behind the dragon’s neck, and you can catch a glimpse of the little rider between the wings. We kept the two objects separate so we could move the rider or adjust their relative sizes. We took this version through the scene layout stage.
+
+#### 3. How did we make it?
+
+| Stage | What we used or did |
+| --- | --- |
+| Scan setup | One seated blue-haired figurine, a black turntable with white dots, a Revopoint scanner, a tabletop tripod and a laptop running Revo Scan 5.5.5 |
+| Scan path | We kept the scanner still and rotated the figurine. On the revised pass, we started at the back and stopped when the turntable had made one full revolution. |
+| Mesh cleanup | Blender 5.2.2 LTS. We imported the OBJ, trimmed the underside with Bisect and used F to fill holes. |
+| Dragon model | We used ChatGPT for the full-body reference on a white background, then Meshy 7.1 4K in MakerWorld to generate the model and export an STL. |
+| Scene layout | We imported the dragon into Blender and adjusted the size and position of each object. The dragon’s scale was 15 in the final screenshot. That value depends on the scale of the imported files. |
+
+**Scanning the figurine.** We placed it on the turntable, mounted the scanner on the tripod and watched both the camera feed and the growing model on the laptop. Our first scan showed doubled outlines. For the next pass we started at the back, let the face pass the camera in one continuous sweep, and stopped when the back came into view again. Revo Scan’s one-click processing gave us a colour preview. We exported an OBJ for cleanup.
+
+![The scanning setup with the figurine, turntable, fixed scanner and Revo Scan interface](setup.jpg)
+
+[Figurine close-up](figurine.jpg) · [Scan in progress](cloud.jpg) · [Turntable video](turntable.mp4) · [Processing clip, approximately 06:18–07:31 in the original recording](processing.mp4)
+
+**Cleaning up the scan.** A tangle of extra mesh clung to the underside of the seat and feet. We also found gaps around the chin and head. We cut away the extra mesh first, then closed the small holes in the head. The chin had an uneven border. We selected its boundary, pressed F to fill it and used that version for the scene.
+
+![Excess scan geometry under the seated figurine before cleanup](raw.png)
+
+[Gap under the chin](chin.png) · [Front view after filling the hole](repaired.png)
+
+**Preparing the dragon reference.** The top pair of wings ran off the edge of the original illustration. In the prompt we specified three pairs of wings, asked for every wingtip to fit in the frame, and kept the legs and tail clear of each other. We also specified blue-green wing membranes with indigo edges. A front three-quarter view against white made each silhouette readable in a single image.
+
+![Full-body six-winged dragon reference used for image-to-3D generation](dragon-reference.png)
+
+[Original illustration](dragon-source.jpg) · [Full image-generation prompt](dragon-prompt.md)
+
+**Placing the rider.** We uploaded the reference to MakerWorld’s image-to-3D tool, chose Meshy and downloaded the single-colour model as `single_color.stl`. In Blender we scaled up the dragon and seated the figurine on its back, close to the neck. The final scene contains the rider object `venti1_tex` and the dragon object `single_color`.
+
+#### 4. How can someone reproduce it?
+
+1. Set the figurine on the turntable and mount the scanner on the tripod. Check the Revo Scan camera preview to make sure both feet and the top of the head are in frame.
+2. Start at the figurine’s back. Rotate past one side, the face and the other side in one continuous pass. Stop at the back, inspect the facial outline, process the scan and export an OBJ.
+3. Import the OBJ into Blender. In Edit Mode, use Bisect to trim the extra mesh beneath the feet. Check the cut height from the side. Select each hole boundary and press F to fill it, then rotate the model to inspect the chin and head.
+4. To recreate the reference, give the image tool the original illustration and the full prompt linked above. To start the modelling stage with our exact input, use the white-background dragon reference.
+5. Upload that image to MakerWorld, generate the dragon with Meshy, and inspect the wingtips, limbs and tail tip before exporting the STL.
+6. Import the STL into the figurine’s Blender scene. Use S to scale, G to move and R to rotate the rider so it faces the dragon’s head. Check from the side and above that the seat meets the back and that the spines clear the rider. Save the scene as a .blend file for later adjustments.
+
+The project includes setup photos, a software recording excerpt, the six-winged dragon reference and the complete prompt.
+
+#### 5. What did we learn?
+
+Moving the start of the scan to the back made the biggest difference to the figurine. Even a small mismatch in the face was obvious from the front. Keeping the scan to a single turn let us capture the face in one pass and put the start and end at the more forgiving back of the head. That gave us a mesh we could work with. We never pinned down the exact cause of the doubled outlines.
+
+Trimming the underside quickly recovered the seated silhouette. Filling the hole under the chin closed the gap, but the missing surface detail was still missing. Next time we’ll rotate the preview while the scanner is still set up, inspect the chin, the areas under the hair tips and the seat, and decide whether to capture another angle.
+
+Completing the cropped wingtips in the reference gave the image-to-3D tool a clear endpoint for each wing. Once the dragon was in Blender, its back spines and wing roots limited where the rider could sit. Next time we’ll save a close side view of the seat alongside the wide shot to show how the two surfaces meet. A printable version would also need checks for mesh closure, wing thickness and the joints.
+
+---
+
 <a name="chapter-02"></a>
 
 ## 第 2 章 · 给长螺丝刀做一个洞洞板挂架
+
+[Read in English ↓](#english-holder)
 
 这把螺丝刀的金属杆很长，我想给它在洞洞板上找个固定的位置。老师提供了能卡进板孔的连接件，有 STP 和 STL 两种格式。我沿用这个连接件，自己设计了前面托住手柄的部分。最后打出来的是一个带卡扣的 C 形托环，整件打印花了大约 13 分钟。
 
@@ -143,3 +214,73 @@
 我把卡扣装上洞洞板，让开口朝外，再把螺丝刀放进去。实际挂上后，托环落在手柄由细变粗的位置，金属杆垂在下方。这一版和手里这把螺丝刀配合得很合适。对我来说，留这个小口最有用的地方就是拿工具时能往前取，省去了把整根长杆往上抽的动作。
 
 ![实装效果，C 形托环从两侧托住黑色手柄，刀杆竖直向下](installed.jpg)
+
+---
+
+<a name="english-holder"></a>
+
+### English · A Pegboard Holder for a Long Screwdriver
+
+I wanted a regular spot on the pegboard for this screwdriver, which has a particularly long metal shaft. Our instructor supplied a clip that fits the board, in both STP and STL formats. I used that clip and designed the part that supports the handle. The finished piece is a C-shaped ring with a pegboard clip. It took about 13 minutes to print.
+
+#### Working out how to take the screwdriver off the board
+
+![The screwdriver beside a steel ruler. The shaft is much narrower than the handle.](screwdriver.jpg)
+
+I first considered hanging it horizontally. With a tool this long, I would have wanted a support at each end. Hanging it vertically meant that one ring could catch the wider part of the handle and let the shaft hang below.
+
+My first idea was a closed ring. I pictured myself reaching for the screwdriver and realised I’d have to lift almost the entire shaft through the ring to get it out. So I left a gap at the front. To put the tool away, I slide the narrow metal shaft sideways through the gap, then lower the handle until its wider section rests on the ring. To take it out, I lift it just far enough to bring the shaft level with the gap and slide it towards me.
+
+#### Trying out the ring in Rhino
+
+I started with a short cylinder for the outside and made a smaller cylinder inside it. The centres shifted apart when I resized the smaller one, so I went back to the top view to check the spacing around the ring.
+
+![The outer cylinder in Rhino’s four viewports](rhino-base.jpg)
+
+![The inner cylinder selected, with both outlines visible in the top view](rhino-center.jpg)
+
+I then tried a Boolean difference to cut out the centre. Two circles appeared in the top view, but the perspective view still seemed to show a face across the hole. I couldn’t tell from that view whether the cut went all the way through. I wrote down the final dimensions, including exactly how to measure the gap, and asked ChatGPT to generate a separate STL of the ring. That’s the file I used in Blender.
+
+![Checking the Boolean result. A pale face still appears in the centre of the perspective view.](rhino-difference.jpg)
+
+| Ring feature | Model dimension |
+| --- | --- |
+| Inner radius / diameter | 13.5 mm / 27 mm |
+| Outer radius / diameter | 18 mm / 36 mm |
+| Wall thickness | 4.5 mm |
+| Ring height | 10 mm |
+| Side opening | 10 mm clear width through the full height |
+
+I measured the **10 mm gap** straight across between the two ends. The distance is 10 mm at both the inner and outer edges, so the two cut faces are parallel. The download contains the ring itself. For the part that attaches to the board, I used the instructor’s clip. [Download the C-ring STL](Screwdriver_C_Ring.stl)
+
+#### Fitting the two pieces together in Blender
+
+I imported the ring and the instructor’s clip into Blender. I positioned the clip against the outside of the ring, leaving the approach to the gap clear for the shaft. I aligned the bottom faces so the ring could lie flat on the print bed with the base of the clip touching the bed as well. That gave the first layer a larger contact area.
+
+![The assembly in Blender, with the open ring on the left and the pegboard clip on the right](blender.jpg)
+
+#### Slicing and printing from a USB drive
+
+I imported the assembled model into the Snapmaker slicer. In the toolpath preview I could follow the walls around the ring and see the gap between its ends. Plate 2 is selected in the screenshot. The figures on the right are the estimates for that plate.
+
+![Snapmaker toolpath preview showing the ring, clip and time estimate](slice.jpg)
+
+| Slicer setting or estimate | Value |
+| --- | --- |
+| Printer / build plate | Snapmaker U1 / textured PEI plate |
+| Filament profile / nozzle diameter | Generic PLA / 0.4 mm |
+| Layer height / first-layer height | 0.2 mm / 0.2 mm |
+| Estimated filament | 1.29 m, about 3.84 g |
+| Estimated time | 18 s preparation + 12 min 6 s printing = 12 min 24 s total |
+
+I exported the G-code, copied it to a USB drive and plugged the drive into the printer to start the job. When I took the screen photo, the printer was priming the nozzle. It showed layer 0 of 60 and 13 minutes remaining. The actual print took about 13 minutes.
+
+![Printer display during nozzle priming, showing 13 minutes remaining](printer.jpg)
+
+![The black holder on the build plate, with the clip on the left and the gap on the right](print-bed.jpg)
+
+#### Trying it on the pegboard
+
+I fitted the clip into the pegboard with the opening facing out, then put the screwdriver in. The handle settled into the ring where it starts to widen, with the shaft hanging straight down. The fit worked well for this particular screwdriver. The small opening paid off when I reached for it: I could lift it slightly and draw it towards me without pulling the whole shaft up through the ring.
+
+![The installed holder supporting the black handle on both sides, with the metal shaft hanging below](installed.jpg)
