@@ -1,5 +1,7 @@
 # 给长螺丝刀做一个洞洞板挂架
 
+[Read in English ↓](#english-holder)
+
 这把螺丝刀的金属杆很长，我想给它在洞洞板上找个固定的位置。老师提供了能卡进板孔的连接件，有 STP 和 STL 两种格式。我沿用这个连接件，自己设计了前面托住手柄的部分。最后打出来的是一个带卡扣的 C 形托环，整件打印花了大约 13 分钟。
 
 ## 先想清楚怎么拿，再决定怎么挂
@@ -63,3 +65,73 @@
 我把卡扣装上洞洞板，让开口朝外，再把螺丝刀放进去。实际挂上后，托环落在手柄由细变粗的位置，金属杆垂在下方。这一版和手里这把螺丝刀配合得很合适。对我来说，留这个小口最有用的地方就是拿工具时能往前取，省去了把整根长杆往上抽的动作。
 
 ![实装效果，C 形托环从两侧托住黑色手柄，刀杆竖直向下](installed.jpg)
+
+---
+
+<a name="english-holder"></a>
+
+## English · A Pegboard Holder for a Long Screwdriver
+
+I wanted a regular spot on the pegboard for this screwdriver, which has a particularly long metal shaft. Our instructor supplied a clip that fits the board, in both STP and STL formats. I used that clip and designed the part that supports the handle. The finished piece is a C-shaped ring with a pegboard clip. It took about 13 minutes to print.
+
+### Working out how to take the screwdriver off the board
+
+![The screwdriver beside a steel ruler. The shaft is much narrower than the handle.](screwdriver.jpg)
+
+I first considered hanging it horizontally. With a tool this long, I would have wanted a support at each end. Hanging it vertically meant that one ring could catch the wider part of the handle and let the shaft hang below.
+
+My first idea was a closed ring. I pictured myself reaching for the screwdriver and realised I’d have to lift almost the entire shaft through the ring to get it out. So I left a gap at the front. To put the tool away, I slide the narrow metal shaft sideways through the gap, then lower the handle until its wider section rests on the ring. To take it out, I lift it just far enough to bring the shaft level with the gap and slide it towards me.
+
+### Trying out the ring in Rhino
+
+I started with a short cylinder for the outside and made a smaller cylinder inside it. The centres shifted apart when I resized the smaller one, so I went back to the top view to check the spacing around the ring.
+
+![The outer cylinder in Rhino’s four viewports](rhino-base.jpg)
+
+![The inner cylinder selected, with both outlines visible in the top view](rhino-center.jpg)
+
+I then tried a Boolean difference to cut out the centre. Two circles appeared in the top view, but the perspective view still seemed to show a face across the hole. I couldn’t tell from that view whether the cut went all the way through. I wrote down the final dimensions, including exactly how to measure the gap, and asked ChatGPT to generate a separate STL of the ring. That’s the file I used in Blender.
+
+![Checking the Boolean result. A pale face still appears in the centre of the perspective view.](rhino-difference.jpg)
+
+| Ring feature | Model dimension |
+| --- | --- |
+| Inner radius / diameter | 13.5 mm / 27 mm |
+| Outer radius / diameter | 18 mm / 36 mm |
+| Wall thickness | 4.5 mm |
+| Ring height | 10 mm |
+| Side opening | 10 mm clear width through the full height |
+
+I measured the **10 mm gap** straight across between the two ends. The distance is 10 mm at both the inner and outer edges, so the two cut faces are parallel. The download contains the ring itself. For the part that attaches to the board, I used the instructor’s clip. [Download the C-ring STL](Screwdriver_C_Ring.stl)
+
+### Fitting the two pieces together in Blender
+
+I imported the ring and the instructor’s clip into Blender. I positioned the clip against the outside of the ring, leaving the approach to the gap clear for the shaft. I aligned the bottom faces so the ring could lie flat on the print bed with the base of the clip touching the bed as well. That gave the first layer a larger contact area.
+
+![The assembly in Blender, with the open ring on the left and the pegboard clip on the right](blender.jpg)
+
+### Slicing and printing from a USB drive
+
+I imported the assembled model into the Snapmaker slicer. In the toolpath preview I could follow the walls around the ring and see the gap between its ends. Plate 2 is selected in the screenshot. The figures on the right are the estimates for that plate.
+
+![Snapmaker toolpath preview showing the ring, clip and time estimate](slice.jpg)
+
+| Slicer setting or estimate | Value |
+| --- | --- |
+| Printer / build plate | Snapmaker U1 / textured PEI plate |
+| Filament profile / nozzle diameter | Generic PLA / 0.4 mm |
+| Layer height / first-layer height | 0.2 mm / 0.2 mm |
+| Estimated filament | 1.29 m, about 3.84 g |
+| Estimated time | 18 s preparation + 12 min 6 s printing = 12 min 24 s total |
+
+I exported the G-code, copied it to a USB drive and plugged the drive into the printer to start the job. When I took the screen photo, the printer was priming the nozzle. It showed layer 0 of 60 and 13 minutes remaining. The actual print took about 13 minutes.
+
+![Printer display during nozzle priming, showing 13 minutes remaining](printer.jpg)
+
+![The black holder on the build plate, with the clip on the left and the gap on the right](print-bed.jpg)
+
+### Trying it on the pegboard
+
+I fitted the clip into the pegboard with the opening facing out, then put the screwdriver in. The handle settled into the ring where it starts to widen, with the shaft hanging straight down. The fit worked well for this particular screwdriver. The small opening paid off when I reached for it: I could lift it slightly and draw it towards me without pulling the whole shaft up through the ring.
+
+![The installed holder supporting the black handle on both sides, with the metal shaft hanging below](installed.jpg)
